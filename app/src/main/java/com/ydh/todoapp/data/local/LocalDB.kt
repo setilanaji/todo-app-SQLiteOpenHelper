@@ -16,13 +16,13 @@ class LocalDB(context: Context) :
         db?.execSQL(TodoEntity.SQL_CREATE_TODO)
     }
 
-    override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-//        when (newVersion) {
-//            1 -> {
-//                db?.execSQL(TodoEntity.SQL_DELETE_TODO)
-//                db?.execSQL(TodoEntity.SQL_CREATE_TODO)
-//            }
+    override fun onDowngrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
+        onUpgrade(db, oldVersion, newVersion)
+    }
 
-//            2 -> db?.execSQL(TodoEntity.SQL_MIGRATE_TODO)
+    override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
+        db?.execSQL(TodoEntity.SQL_DELETE_TODO)
+        onCreate(db)
+
     }
 }

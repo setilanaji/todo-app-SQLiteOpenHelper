@@ -13,5 +13,6 @@ class TodoEntity(val id: Long, val task: String) {
                     "$COLUMN_TASK TEXT" +
                     "$COLUMN_COMPLETE_STATUS INTEGER" +
                     "$COLUMN_DATE STRING)"
+        const val SQL_DELETE_TODO = "DROP TABLE IF EXISTS $TABLE_NAME"
     }
 }
