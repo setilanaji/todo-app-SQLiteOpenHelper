@@ -16,14 +16,15 @@ class TodoFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentTodoBinding.inflate(inflater, container, false).apply {
-
-        }
+        binding = FragmentTodoBinding.inflate(inflater, container, false)
+//            .apply {
+//
+//        }
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-    }
+//    override fun onActivityCreated(savedInstanceState: Bundle?) {
+//        super.onActivityCreated(savedInstanceState)
+//
+//    }
 }

@@ -3,22 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_todo_graph.xml"
-    app:startDestination="@id/todoFragment">
+    app:startDestination="@id/todoListFragment">
     <fragment
         android:id="@+id/todoFragment"
         android:name="com.ydh.todoapp.view.fragment.TodoFragment"
         android:label="fragment_todo"
-        tools:layout="@layout/fragment_todo" >
-        <action
-            android:id="@+id/action_todoFragment_to_todoListFragment"
-            app:destination="@id/todoListFragment" />
-        <action
-            android:id="@+id/action_todoFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
-        <action
-            android:id="@+id/action_todoFragment_to_favoritesFragment"
-            app:destination="@id/favoritesFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_todo" />
     <fragment
         android:id="@+id/todoListFragment"
         android:name="com.ydh.todoapp.view.fragment.TodoListFragment"
