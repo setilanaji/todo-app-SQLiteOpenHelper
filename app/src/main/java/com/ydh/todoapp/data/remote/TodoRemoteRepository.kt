@@ -18,19 +18,20 @@ class TodoRemoteRepository(context: Context): TodoRepository{
     }
 
     override fun insertTodo(task: String, date: String): TodoModel {
-        val policy = StrictMode.ThreadPolicy.Builder()
+        val policy= StrictMode.ThreadPolicy.Builder()
                 .permitAll().build()
         StrictMode.setThreadPolicy(policy)
         return TodoClient.todoApiService.insertTodo(TodoBodyInsert(task)).execute().body()!!.data
-
     }
 
+
     override fun deleteTodo(id: Long): Long {
-        TODO("Not yet implemented")
+        return TodoClient.todoApiService.deleteTodo(id).execute().body()!!.data.toLong()
     }
 
     override fun updateTodo(todoModel: TodoModel): TodoModel {
         TODO("Not yet implemented")
     }
+
 
 }

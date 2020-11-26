@@ -58,27 +58,27 @@ class TodoLocalRepository(context: Context) : TodoRepository {
     }
 
     override fun deleteTodo(id: Long): Long {
-//        val db = localDatabase.writableDatabase
-//        val selection = "${TodoEntity.COLUMN_ID} = ?"
-//        val selectionArgs = arrayOf("$id")
-//
-//        db.delete(TodoEntity.TABLE_NAME, selection, selectionArgs)
-//        db.close()
+        val db = localDatabase.writableDatabase
+        val selection = "${TodoEntity.COLUMN_ID} = ?"
+        val selectionArgs = arrayOf("$id")
+
+        db.delete(TodoEntity.TABLE_NAME, selection, selectionArgs)
+        db.close()
 
         return id
     }
 
     override fun updateTodo(todoModel: TodoModel): TodoModel {
-//        val db = localDatabase.writableDatabase
-//        val values = ContentValues().apply {
-//            put(TodoEntity.COLUMN_TASK, todoModel.task)
-//            put(TodoEntity.COLUMN_COMPLETE_STATUS, if (todoModel.completeStatus) 1 else 0)
-//        }
-//        val selection = "${TodoEntity.COLUMN_ID} = ?"
-//        val selectionArgs = arrayOf("${todoModel.id}")
-//
-//        db.update(TodoEntity.TABLE_NAME, values, selection, selectionArgs)
-//        db.close()
+        val db = localDatabase.writableDatabase
+        val values = ContentValues().apply {
+            put(TodoEntity.COLUMN_TASK, todoModel.task)
+            put(TodoEntity.COLUMN_COMPLETE_STATUS, if (todoModel.completeStatus) 1 else 0)
+        }
+        val selection = "${TodoEntity.COLUMN_ID} = ?"
+        val selectionArgs = arrayOf("${todoModel.id}")
+
+        db.update(TodoEntity.TABLE_NAME, values, selection, selectionArgs)
+        db.close()
 
         return todoModel
     }

@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.ydh.todoapp.R
+import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.ydh.todoapp.TodoContract
 import com.ydh.todoapp.data.TodoRepository
 import com.ydh.todoapp.data.remote.TodoRemoteRepository
@@ -66,22 +66,25 @@ class TodoListFragment : Fragment(), TodoContract.View, TodoAdapter.TodoListener
     }
 
     override fun onSuccessDeleteTodo(id: Long) {
-        TODO("Not yet implemented")
+        adapter.deleteTodo(id)
     }
 
     override fun onSuccessUpdateTodo(todoModel: TodoModel) {
-        TODO("Not yet implemented")
+        adapter.addTodo(todoModel)
+        binding.tieTodo.setText("")
     }
 
     override fun onClick(todoModel: TodoModel) {
-        TODO("Not yet implemented")
+        //val action = TodoListFragmentDirections.actionTodoListFragmentToTodoDetailFragment2()
+        //findNavController().navigate(action)
     }
 
     override fun onDelete(id: Long) {
-        TODO("Not yet implemented")
+        presenter.deleteTodo(id)
     }
 
     override fun onChange(todoModel: TodoModel) {
-        TODO("Not yet implemented")
+        todoModel.completeStatus = !todoModel.completeStatus
+        presenter.updateTodo(todoModel)
     }
 }

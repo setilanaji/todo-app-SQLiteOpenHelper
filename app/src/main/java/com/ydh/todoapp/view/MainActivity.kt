@@ -29,14 +29,12 @@ class MainActivity : AppCompatActivity() {
         setupViewPager()
         binding.navTodo.setOnNavigationItemSelectedListener {
             when(it.itemId){
-                R.id.todoFragment -> binding.vpTodo.currentItem = 0
-                R.id.favoritesFragment -> binding.vpTodo.currentItem = 1
-                R.id.profileFragment -> binding.vpTodo.currentItem = 2
+                R.id.menuTodo -> binding.vpTodo.currentItem = 0
+                R.id.menuFavorite -> binding.vpTodo.currentItem = 1
+                R.id.menuProfile -> binding.vpTodo.currentItem = 2
             }
             return@setOnNavigationItemSelectedListener false
         }
-
-
         setContentView(binding.root)
     }
 
