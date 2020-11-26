@@ -1,6 +1,7 @@
 package com.ydh.todoapp.data.remote
 
 import com.ydh.todoapp.model.TodoBodyInsert
+import com.ydh.todoapp.model.TodoBodyUpdate
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -17,5 +18,7 @@ interface TodoService {
     @DELETE("api/v1/todos/{id}")
     fun deleteTodo(@Path("id") id: Long): Call<DeleteTodoResponse>
 
+    @PUT("api/v1/todos/{id}")
+    fun updateTodo(@Path("id") id: Long, @Body body: TodoBodyUpdate): Call<UpdateResponse>
 
 }

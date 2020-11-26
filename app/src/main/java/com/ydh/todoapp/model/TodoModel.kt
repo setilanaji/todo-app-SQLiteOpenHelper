@@ -13,5 +13,7 @@ data class TodoModel(
     @SerializedName("status")
     var completeStatus: Boolean = false,
     @SerializedName("date")
-    var date: String
+    var date: String,
+
+    var favoriteStatus: Boolean = false
 ) : Parcelable

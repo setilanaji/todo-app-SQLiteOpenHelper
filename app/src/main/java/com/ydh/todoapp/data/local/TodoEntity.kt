@@ -10,9 +10,9 @@ class TodoEntity(val id: Long, val task: String) {
         const val SQL_CREATE_TODO =
             "CREATE TABLE $TABLE_NAME (" +
                     "$COLUMN_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    "$COLUMN_TASK TEXT" +
-                    "$COLUMN_COMPLETE_STATUS INTEGER" +
-                    "$COLUMN_DATE STRING)"
+                    "$COLUMN_TASK TEXT," +
+                    "$COLUMN_COMPLETE_STATUS INTEGER," +
+                    "$COLUMN_DATE TEXT)"
         const val SQL_DELETE_TODO = "DROP TABLE IF EXISTS $TABLE_NAME"
     }
 }

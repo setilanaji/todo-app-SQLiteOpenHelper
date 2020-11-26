@@ -1,6 +1,7 @@
 package com.ydh.todoapp.data.remote
 
 import com.google.gson.annotations.SerializedName
+import com.ydh.todoapp.model.TodoModel
 
 data class DeleteTodoResponse(
     @SerializedName("status")

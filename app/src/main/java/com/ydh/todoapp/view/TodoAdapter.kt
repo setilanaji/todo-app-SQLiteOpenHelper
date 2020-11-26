@@ -14,11 +14,11 @@ class TodoAdapter(
 ) : RecyclerView.Adapter<TodoAdapter.MyViewHolder>() {
     private var todoList = mutableListOf<TodoModel>()
 
-    var list = mutableListOf<TodoModel>()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
+//    var list = mutableListOf<TodoModel>()
+//        set(value) {
+//            field = value
+//            notifyDataSetChanged()
+//        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val inflater = LayoutInflater.from(context)
@@ -42,18 +42,23 @@ class TodoAdapter(
         notifyItemInserted(0)
     }
 
+    fun getData(position: Int): TodoModel{
+        return todoList[position]
+    }
+
     fun deleteTodo(id: Long) {
-        val index = list.indexOfFirst { it.id == id }
+
+        val index = todoList.indexOfFirst { it.id == id }
         if (index != -1) {
-            list.removeAt(index)
+            todoList.removeAt(index)
             notifyItemRemoved(index)
         }
     }
 
     fun updateTodo(todoModel: TodoModel) {
-        val index = list.indexOfFirst { it.id == todoModel.id }
+        val index = todoList.indexOfFirst { it.id == todoModel.id }
         if (index != -1) {
-            list[index] = todoModel
+            todoList[index] = todoModel
             notifyItemChanged(index)
         }
     }
@@ -62,6 +67,8 @@ class TodoAdapter(
         fun onClick(todoModel: TodoModel)
         fun onDelete(id: Long)
         fun onChange(todoModel: TodoModel)
+        fun onFavClick(todoModel: TodoModel)
+        fun onDelFavClick(todoModel: TodoModel)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
@@ -84,15 +91,35 @@ class TodoAdapter(
             this.binding = itemBinding
             itemBinding.run {
 
-                fun bindData(todoModel: TodoModel) {
+//                fun bindData(todoModel: TodoModel) {
 
-                    tvTodo.text = todoModel.task
+//                    tvTodo.text = todoModel.task
 
-                    root.setOnClickListener { listener.onClick(todoModel) }
-                    ivStatus.setImageResource(if (todoModel.completeStatus) R.drawable.ic_done else R.drawable.ic_pause_circle)
-                    ivStatus.setOnClickListener { listener.onChange(todoModel) }
+//                    root.setOnClickListener { listener.onClick(todoModel) }
+//                    ivStatus.setImageResource(if (todoModel.completeStatus) R.drawable.ic_done else R.drawable.ic_pause_circle)
+//                    ivStatus.setOnClickListener { listener.onChange(todoModel) }
+
+                    itemBinding.ivFavTodo.setOnClickListener{
+                        if (itemBinding.ivFavTodo.isChecked){
+                            listener.onFavClick(itemBinding.todo!!)
+                        }else{
+                            listener.onDelFavClick(itemBinding.todo!!)
+                        }
+                    }
+
+                    itemBinding.ivStatus.setOnClickListener{
+                        val item = itemBinding.todo
+                        if (itemBinding.ivStatus.isChecked){
+                            item!!.favoriteStatus = true
+                            listener.onChange(item)
+                        }else{
+                            item!!.favoriteStatus = false
+                            listener.onChange(item)
+                        }
+                    }
+
                 }
-            }
+//            }
         }
 
     }

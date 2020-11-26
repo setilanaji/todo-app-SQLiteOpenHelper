@@ -73,14 +73,32 @@ class TodoLocalRepository(context: Context) : TodoRepository {
         val values = ContentValues().apply {
             put(TodoEntity.COLUMN_TASK, todoModel.task)
             put(TodoEntity.COLUMN_COMPLETE_STATUS, if (todoModel.completeStatus) 1 else 0)
+            put(TodoEntity.COLUMN_DATE,todoModel.date )
+
         }
-        val selection = "${TodoEntity.COLUMN_ID} = ?"
-        val selectionArgs = arrayOf("${todoModel.id}")
+        val selection = "${TodoEntity.COLUMN_ID} = ? "
+        val selectionArgs = arrayOf("${todoModel.id}" )
 
         db.update(TodoEntity.TABLE_NAME, values, selection, selectionArgs)
         db.close()
 
         return todoModel
+    }
+
+    override fun getAllTodoOnline(): List<TodoModel> {
+        TODO("Not yet implemented")
+    }
+
+    override fun createTodoOnline(task: String, date: String): TodoModel {
+        TODO("Not yet implemented")
+    }
+
+    override fun updateTodoById(todoModel: TodoModel): TodoModel {
+        TODO("Not yet implemented")
+    }
+
+    override fun deleteTodoById(id: Long): Long {
+        TODO("Not yet implemented")
     }
 
 }
