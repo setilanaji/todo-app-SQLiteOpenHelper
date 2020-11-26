@@ -3,6 +3,7 @@ package com.ydh.todoapp
 import com.ydh.todoapp.model.TodoModel
 
 interface TodoContract {
+
     interface View {
         fun onSuccessGetAllTodo(todo: List<TodoModel>)
         fun onSuccessInsertTodo(todoModel: TodoModel)
@@ -15,5 +16,6 @@ interface TodoContract {
         fun insertTodo(task: String, date: String)
         fun deleteTodo(id: Long)
         fun updateTodo(todoModel: TodoModel)
+
     }
 }

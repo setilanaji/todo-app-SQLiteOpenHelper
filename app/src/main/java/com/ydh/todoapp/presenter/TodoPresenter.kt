@@ -6,9 +6,11 @@ import com.ydh.todoapp.model.TodoModel
 
 class TodoPresenter(private val view: TodoContract.View, private val repository: TodoRepository) :
     TodoContract.Presenter {
-    override fun getAllTodo() {
 
+
+    override fun getAllTodo() {
             val todoList by lazy { repository.getAllTodo() }
+        println(todoList)
         view.onSuccessGetAllTodo(todoList)
     }
 
