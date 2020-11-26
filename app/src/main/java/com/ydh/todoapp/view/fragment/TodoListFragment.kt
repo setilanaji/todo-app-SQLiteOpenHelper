@@ -13,10 +13,12 @@ import com.ydh.todoapp.databinding.FragmentTodoListBinding
 import com.ydh.todoapp.model.TodoModel
 import com.ydh.todoapp.presenter.TodoPresenter
 import com.ydh.todoapp.view.TodoAdapter
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
-class TodoListFragment : Fragment(), TodoContract.View {
+class TodoListFragment : Fragment(), TodoContract.View, TodoAdapter.TodoListener {
 
-    private val adapter by lazy { TodoAdapter(requireContext()) }
+    private val adapter by lazy { TodoAdapter(requireContext(), this) }
     lateinit var binding: FragmentTodoListBinding
 
     private val repository: TodoRepository by lazy {
@@ -31,20 +33,36 @@ class TodoListFragment : Fragment(), TodoContract.View {
     ): View? {
 
         binding = FragmentTodoListBinding.inflate(inflater, container, false)
-        presenter.getAllTodo()
 
-        binding.rvTodo.adapter = adapter
+        setView()
+        presenter.getAllTodo()
+        setView()
         return binding.root
+    }
+
+    private fun setView(){
+        binding.run {
+            rvTodo.adapter = adapter
+            btnAdd.setOnClickListener {
+                    presenter.insertTodo(tieTodo.text.toString(), date = getCurrentDate())
+            }
+        }
+
+    }
+
+    private fun getCurrentDate(): String{
+        val date = LocalDateTime.now()
+        return date.format(DateTimeFormatter.ofPattern("dd MM yyyy - HH:mm:ss"))
     }
 
     override fun onSuccessGetAllTodo(todo: List<TodoModel>) {
         val data = todo as MutableList<TodoModel>
-adapter.setData(data)
-
+        adapter.setData(data)
     }
 
     override fun onSuccessInsertTodo(todoModel: TodoModel) {
-        TODO("Not yet implemented")
+        adapter.addTodo(todoModel)
+        binding.tieTodo.setText("")
     }
 
     override fun onSuccessDeleteTodo(id: Long) {
@@ -52,6 +70,18 @@ adapter.setData(data)
     }
 
     override fun onSuccessUpdateTodo(todoModel: TodoModel) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClick(todoModel: TodoModel) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onDelete(id: Long) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onChange(todoModel: TodoModel) {
         TODO("Not yet implemented")
     }
 }

@@ -10,7 +10,7 @@ import com.ydh.todoapp.databinding.ItemTodoBinding
 import com.ydh.todoapp.model.TodoModel
 
 class TodoAdapter(
-        private val context: Context,
+        private val context: Context, private val listener: TodoListener
 ) : RecyclerView.Adapter<TodoAdapter.MyViewHolder>() {
     private var todoList = mutableListOf<TodoModel>()
 
@@ -19,7 +19,7 @@ class TodoAdapter(
         val inflater = LayoutInflater.from(context)
         val binding: ItemTodoBinding = DataBindingUtil.inflate(inflater,
                 R.layout.item_todo,parent,false)
-        return MyViewHolder(binding)
+        return MyViewHolder(binding, listener)
     }
 
     fun setData(item: MutableList<TodoModel>){
@@ -27,6 +27,18 @@ class TodoAdapter(
         println("set Data")
         this.todoList = item
         notifyDataSetChanged()
+    }
+
+
+    fun addTodo(todoModel: TodoModel) {
+        todoList.add(0, todoModel)
+        notifyItemInserted(0)
+    }
+
+    interface TodoListener {
+        fun onClick(todoModel: TodoModel)
+        fun onDelete(id: Long)
+        fun onChange(todoModel: TodoModel)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
@@ -37,7 +49,8 @@ class TodoAdapter(
         return todoList.size
     }
 
-    class MyViewHolder(val itemBinding: ItemTodoBinding) : RecyclerView.ViewHolder(itemBinding.root){
+    class MyViewHolder(val itemBinding: ItemTodoBinding,
+                       private val listener: TodoListener) : RecyclerView.ViewHolder(itemBinding.root){
 
         private var binding : ItemTodoBinding? = null
 
