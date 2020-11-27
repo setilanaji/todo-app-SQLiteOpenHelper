@@ -106,6 +106,7 @@ class TodoListFragment : Fragment(), TodoContract.View, TodoAdapter.TodoListener
     override fun onSuccessUpdateTodo(todoModel: TodoModel) {
 //        adapter.addTodo(todoModel)
 //        binding.tieTodo.setText("")
+        println("On success updaate $todoModel")
 
         adapter.updateTodo(todoModel)
 
@@ -133,8 +134,9 @@ class TodoListFragment : Fragment(), TodoContract.View, TodoAdapter.TodoListener
     }
 
     override fun onChange(todoModel: TodoModel) {
-        todoModel.completeStatus = !todoModel.completeStatus
+//        todoModel.completeStatus = !todoModel.completeStatus
 //        presenter.updateTodo(todoModel)
+        println("check onchange $todoModel")
 
         presenter.updateTodo(todoModel)
         offlinePresenter.updateFavTodo(todoModel)

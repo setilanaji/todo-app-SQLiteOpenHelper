@@ -30,8 +30,7 @@ class TodoAdapter(
     }
 
     fun setData(item: MutableList<TodoModel>) {
-        println(item)
-        println("set Data")
+
         this.todoList = item
         notifyDataSetChanged()
     }
@@ -110,10 +109,10 @@ class TodoAdapter(
                     itemBinding.ivStatus.setOnClickListener{
                         val item = itemBinding.todo
                         if (itemBinding.ivStatus.isChecked){
-                            item!!.favoriteStatus = true
+                            item!!.completeStatus = true
                             listener.onChange(item)
                         }else{
-                            item!!.favoriteStatus = false
+                            item!!.completeStatus = false
                             listener.onChange(item)
                         }
                     }
