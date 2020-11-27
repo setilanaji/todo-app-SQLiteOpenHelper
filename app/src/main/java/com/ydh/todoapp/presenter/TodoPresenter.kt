@@ -8,9 +8,9 @@ class TodoPresenter(private val view: TodoContract.View, private val repository:
     TodoContract.Presenter {
 
 
-    override fun getAllTodo() {
-            val todoList by lazy { repository.getAllTodoOnline() }
-        println(todoList)
+    override fun getAllTodo(todo: List<TodoModel>) {
+            val todoList by lazy { repository.getAllTodoOnline(todo) }
+//        println(todoList)
         view.onSuccessGetAllTodo(todoList)
     }
 
@@ -19,13 +19,14 @@ class TodoPresenter(private val view: TodoContract.View, private val repository:
         view.onSuccessUpdateTodo(todo)
     }
 
-    override fun getAllFavTodo() {
+    override fun getAllFavTodo(): List<TodoModel> {
         val todo by lazy { repository.getAllTodo() }
         view.onSuccessGetAllFavTodo(todo)
+        return todo
     }
 
     override fun insertFavTodo(todoModel: TodoModel) {
-        val todo by lazy { repository.insertTodo(todoModel.task, todoModel.date) }
+        val todo by lazy { repository.insertTodo(todoModel) }
         view.onSuccessInsertFavTodo(todo)
     }
 

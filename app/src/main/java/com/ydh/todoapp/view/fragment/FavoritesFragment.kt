@@ -43,7 +43,7 @@ class FavoritesFragment : Fragment(), TodoContract.View,  TodoFavAdapter.TodoLis
             rvFavorite.adapter = adapter
             val swipeHandler = object : SwipeToDelete(requireContext()) {
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    val adapter = rvFavorite.adapter as TodoAdapter
+                    val adapter = rvFavorite.adapter as TodoFavAdapter
                     val pos = viewHolder.adapterPosition
                     val item = adapter.getData(pos)
                     presenter.deleteTodo(item.id)

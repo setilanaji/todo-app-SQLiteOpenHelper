@@ -43,18 +43,19 @@ class TodoLocalRepository(context: Context) : TodoRepository {
         return todo
     }
 
-    override fun insertTodo(task: String, date: String): TodoModel {
+    override fun insertTodo(todoModel: TodoModel): TodoModel {
         val db = localDatabase.writableDatabase
         val values = ContentValues().apply {
-            put(TodoEntity.COLUMN_TASK, task)
-            put(TodoEntity.COLUMN_COMPLETE_STATUS, 0)
-            put(TodoEntity.COLUMN_DATE,date )
+            put(TodoEntity.COLUMN_TASK, todoModel.task)
+            put(TodoEntity.COLUMN_ID, todoModel.id)
+            put(TodoEntity.COLUMN_COMPLETE_STATUS, if (todoModel.completeStatus) 1 else 0)
+            put(TodoEntity.COLUMN_DATE,todoModel.date )
         }
 
         val id = db.insert(TodoEntity.TABLE_NAME, TodoEntity.COLUMN_ID, values)
         db.close()
 
-        return TodoModel(id, task, completeStatus = false, date = date)
+        return TodoModel(todoModel.id, todoModel.task, todoModel.completeStatus, date = todoModel.date)
     }
 
     override fun deleteTodo(id: Long): Long {
@@ -85,7 +86,7 @@ class TodoLocalRepository(context: Context) : TodoRepository {
         return todoModel
     }
 
-    override fun getAllTodoOnline(): List<TodoModel> {
+    override fun getAllTodoOnline(list: List<TodoModel>): List<TodoModel> {
         TODO("Not yet implemented")
     }
 

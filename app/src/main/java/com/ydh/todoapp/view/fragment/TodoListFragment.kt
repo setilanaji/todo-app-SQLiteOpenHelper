@@ -46,8 +46,8 @@ class TodoListFragment : Fragment(), TodoContract.View, TodoAdapter.TodoListener
 
         binding = FragmentTodoListBinding.inflate(inflater, container, false)
 
-        setView()
-        presenter.getAllTodo()
+//        setView()
+//        presenter.getAllTodo()
         setView()
         return binding.root
     }
@@ -79,9 +79,10 @@ class TodoListFragment : Fragment(), TodoContract.View, TodoAdapter.TodoListener
 
     override fun onResume() {
         super.onResume()
-//        val todo = offlinePresenter.getAllFavTodo()
+        val todo = offlinePresenter.getAllFavTodo()
+        println("fav $todo")
 
-        presenter.getAllTodo()
+        presenter.getAllTodo(todo)
     }
 
     private fun getCurrentDate(): String{
@@ -90,6 +91,7 @@ class TodoListFragment : Fragment(), TodoContract.View, TodoAdapter.TodoListener
     }
 
     override fun onSuccessGetAllTodo(todo: List<TodoModel>) {
+        println("get alll todo $todo")
         val data = todo as MutableList<TodoModel>
         adapter.setData(data)
     }

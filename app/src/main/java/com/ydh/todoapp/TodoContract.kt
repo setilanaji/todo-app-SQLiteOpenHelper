@@ -17,11 +17,11 @@ interface TodoContract {
     }
 
     interface Presenter {
-        fun getAllTodo()
+        fun getAllTodo(list:  List<TodoModel>)
         fun insertTodo(task: String, date: String)
         fun deleteTodo(id: Long)
         fun updateTodo(todoModel: TodoModel)
-        fun getAllFavTodo()
+        fun getAllFavTodo(): List<TodoModel>
         fun insertFavTodo(todoModel: TodoModel)
         fun deleteFavTodo(todoModel: TodoModel)
         fun updateFavTodo(todoModel: TodoModel)

@@ -16,7 +16,7 @@ class TodoRemoteRepository(context: Context): TodoRepository{
 
     }
 
-    override fun insertTodo(task: String, date: String): TodoModel {
+    override fun insertTodo(todoModel: TodoModel): TodoModel {
         TODO("Not yet implemented")
 
     }
@@ -31,11 +31,23 @@ class TodoRemoteRepository(context: Context): TodoRepository{
         TODO("Not yet implemented")
     }
 
-    override fun getAllTodoOnline(): List<TodoModel> {
+    override fun getAllTodoOnline(list: List<TodoModel>): List<TodoModel> {
         val policy = StrictMode.ThreadPolicy.Builder()
             .permitAll().build()
         StrictMode.setThreadPolicy(policy)
-        return TodoClient.todoApiService.getAllTodo().execute().body()?.data as MutableList<TodoModel>
+       val listTodo =  TodoClient.todoApiService.getAllTodo().execute().body()?.data as MutableList<TodoModel>
+        val todoEdited = mutableListOf<TodoModel>()
+        for (item in listTodo){
+            for (x in list){
+                if (item.id == x.id ){
+                    item.favoriteStatus = true
+                    println("found")
+                }
+            }
+            todoEdited.add(item)
+        }
+
+        return todoEdited.toList()
     }
 
     override fun createTodoOnline(task: String, date: String): TodoModel {
@@ -56,6 +68,7 @@ class TodoRemoteRepository(context: Context): TodoRepository{
         val policy= StrictMode.ThreadPolicy.Builder()
             .permitAll().build()
         StrictMode.setThreadPolicy(policy)
+        println("id $id")
         return if (TodoClient.todoApiService.deleteTodo(id).execute().body()!!.status) id else -1
     }
 

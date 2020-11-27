@@ -7,12 +7,12 @@ import retrofit2.Call
 
 interface TodoRepository {
     fun getAllTodo(): List<TodoModel>
-    fun insertTodo(task: String, date: String): TodoModel
+    fun insertTodo(todoModel: TodoModel): TodoModel
     fun deleteTodo(id: Long): Long
     fun updateTodo(todoModel: TodoModel): TodoModel
 
 
-    fun getAllTodoOnline(): List<TodoModel>
+    fun getAllTodoOnline(list: List<TodoModel>): List<TodoModel>
     fun createTodoOnline(task: String, date: String): TodoModel
     fun updateTodoById(todoModel: TodoModel): TodoModel
     fun deleteTodoById(id: Long): Long
